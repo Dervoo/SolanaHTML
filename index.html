@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Solana Connector Demo</title>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+    <!-- <script src="https://unpkg.com/@metaplex/js@latest/lib/index.iife.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/@solana/spl-token"></script> -->
+    <!-- We have to check, propably will be needed for SOLANA-->
+  </head>
+  <body>
+    <h2>Solana Connector Demo</h2>
+    <button id="connect">Connect</button>
+    <script type="text/javascript">
+      console.log("Connecting..");
+      window.addEventListener("load", async () => {
+        if (window.solana) {
+          try {
+            initApp();
+            console.log("Connecting with Phantom Wallet")
+          } catch (err) {
+            console.log(err);
+            $("#status").html("User denied account access", err);
+          }
+        } else if (!window.solana) {
+          let link = window.open("https://phantom.app/", "_blank");
+          link.opener = null;
+        }
+      });
+      const connect = async () => {
+        await window.solana.connect();
+      };
+      function initApp() {
+        connect();
+      }
+      document.getElementById("connect").onclick = initApp;
+    </script>
+  </body>
+</html>
