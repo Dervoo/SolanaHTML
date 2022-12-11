@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Solana Connector Demo</title>
+    <script src="https://unpkg.com/@solana/web3.js@v1.24.2/lib/index.iife.js"></script>
+    <script src="https://unpkg.com/@metaplex/js@latest/lib/index.iife.min.js"></script>
+    <script src="https://unpkg.com/@solana/spl-token"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- We have to check, propably will be needed for SOLANA-->
+  </head>
+  <body>
+    <h2>Solana Connector Demo</h2>
+    <button id="connect">Connect</button>
+    <script type="text/javascript">
+      console.log("Connecting..");
+      window.addEventListener("load", async () => {
+        if (window.solana) {
+          try {
+            initApp();
+            console.log("Connecting with Phantom Wallet")
+          } catch (err) {
+            console.log(err);
+            $("#status").html("User denied account access", err);
+          }
+        } else if (!window.solana) {
+          let link = window.open("https://phantom.app/", "_blank");
+          link.opener = null;
+        }
+      });
+// const { Metadata } = require('@metaplex-foundation/mpl-token-metadata');
+// const { Connection} = require('@metaplex/js');
+// const metaplexConnection = new solanaWeb3.Connection('devnet');
+// console.log("metaplex", metaplexConnection)
+//@pubkey: string is NFT mint address
+// async function getMetadata(mintAddress){
+//     const tokenMetaPublicKey=await Metadata.getPDA(mintAddress)
+//     const response=await Metadata.load(metaplexConnection, tokenMetaPublicKey)
+//     //console.log(response)
+//     const { data } = await axios.get(response.data.data.uri);
+//     console.log(data)
+//     return
+// }
+// getMetadata('4H2FGgAPMgUCm6tTDK8eKDR721deX3vvUV9dD3B3k1pq'); //my NFT mint address
+
+
+
+      const connect = async () => {
+        const metaplexConnection = new solanaWeb3.Connection('https://api.devnet.solana.com');
+console.log("metaplex", metaplexConnection)
+        let nftMintAccount = new solanaWeb3.PublicKey("77ZZDNuC4RDdWigm2bsPs9FU7ixfFjPX4ABYhY2s9MpJ");
+        console.log("grr", nftMintAccount);
+    let metadataAccount = await metaplex.Metadata.getPDA(nftMintAccount);
+    console.log("metaAcc", metadataAccount)
+        await window.solana.connect();
+      };
+      function initApp() {
+        connect();
+      }
+      document.getElementById("connect").onclick = initApp;
+    </script>
+  </body>
+</html>
