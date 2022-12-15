@@ -9,7 +9,6 @@
     <script src="https://unpkg.com/@project-serum/anchor@latest"></script>
     <script src="https://unpkg.com/bs58@2.0.1/lib/bs58.js"></script>
     <script src="https://unpkg.com/@metaplex-foundation/mpl-token-metadata"></script>
-    <!--@metaplex-foundation/mpl-token-metadata-->
     <!-- We have to check, propably will be needed for SOLANA-->
   </head>
   <body>
@@ -32,22 +31,10 @@
           link.opener = null;
         }
       });
-// const { Metadata } = require('@metaplex-foundation/mpl-token-metadata');
-// const { Connection} = require('@metaplex/js');
-// const metaplexConnection = new solanaWeb3.Connection('devnet');
-// console.log("metaplex", metaplexConnection)
-//@pubkey: string is NFT mint address
-// async function getMetadata(mintAddress){
-//     const tokenMetaPublicKey=await Metadata.getPDA(mintAddress)
-//     const response=await Metadata.load(metaplexConnection, tokenMetaPublicKey)
-//     //console.log(response)
-//     const { data } = await axios.get(response.data.data.uri);
-//     console.log(data)
-//     return
-// }
-// getMetadata('4H2FGgAPMgUCm6tTDK8eKDR721deX3vvUV9dD3B3k1pq'); //my NFT mint address
-
-const mintBtt = async () => {
+      const connect = async () => {
+        await window.solana.connect();
+      };
+      const mintBtt = async () => {
     try {
         // const secretKey = fs.readFileSync(
         //   "/Users/pratiksaria/.config/solana/id.json",
@@ -201,16 +188,6 @@ const mintBtt = async () => {
         console.log("Error: " + error);
       }
 }
-
-      const connect = async () => {
-        const metaplexConnection = new solanaWeb3.Connection('https://api.devnet.solana.com');
-console.log("metaplex", metaplexConnection)
-        let nftMintAccount = new solanaWeb3.PublicKey("77ZZDNuC4RDdWigm2bsPs9FU7ixfFjPX4ABYhY2s9MpJ");
-        console.log("grr", nftMintAccount);
-    let metadataAccount = await metaplex.Metadata.getPDA(nftMintAccount);
-    console.log("metaAcc", metadataAccount)
-        await window.solana.connect();
-      };
       function initApp() {
         connect();
       }
